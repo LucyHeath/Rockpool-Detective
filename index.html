@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Mastermind</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/main.css">
+    <script src="scripts/app.js" charset="utf-8"></script>
+  </head>
+
+  <body>
+    <audio autoplay loop src="assets/mixkit-sea-waves-with-birds-loop-1185.wav" type="audio/wav"></audio>
+    <header >
+      <div id="header-wrapper">
+        <div class="pic-container">
+        </div>
+        <h1 id="title">Mastermind: Rockpool Detective</h1>
+        <div class="pic-container">
+          <img class="header" src="assets/seagull.png" alt="seagull">
+        </div>
+      </div>
+    </header>
+
+  <main>
+
+  <div id="game-container">
+
+    <div id="story-container">
+
+      <div class ="wrapper" id="story-wrapper">
+      <h2>Help Sammy the Seal!</h2>
+      <div id="protagonist-container">
+        <div id="protagonist-img"><img src="assets/seal.png" alt="cute seal"></div>
+        <p>The tide went out and left little Sammy stuck in a rockpool.A local seagull Gulliver knows the beach well and can guide the rescuers straight to Sammy if you can find the right rockpool!</p>
+      </div>
+      </div>
+
+      <div class="wrapper" id="rules-wrapper">
+        <h3>How to play</h3>
+        <p> * Identify Sammy's rockpool by finding the right combination of Rockpool Creatures!</p> 
+        <p> * Start by placing four Rockpool Creatures into the bottom of the grid </p> 
+        <p> * You must guess the correct creatures AND and the order they occur in.</p>
+        <p> * Clue shells are placed after each turn to give you clues! These are placed in <strong>random</strong> order.</p>
+        <p>Find the combination before the grid fills up to rescue Sammy in time. Good luck! </p>
+        <p>Hint: creatures can appear <em>more than once</em>!</p>
+      </div>
+
+    </div>
+
+    <div id="clue-and-grid-container">
+
+    <div id="grid-wrapper"> 
+      <div id ="grid">
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+          <div class="cell"></div>
+        </div>
+    </div>
+
+    <div id="clue-wrapper">
+      <div id="clue-grid">
+          <div class="clue-cell">
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+        </div>
+          <div class="clue-cell">
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+          </div>
+          <div class="clue-cell">
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+          </div>
+          <div class="clue-cell">
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+          </div>
+          <div class="clue-cell">
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+          </div>
+          <div class="clue-cell">
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+            <div class="key-cell"></div>
+          </div>
+      </div>
+    </div>
+    </div> 
+    
+  </div>
+
+    <div id="choices-key-restart-container">
+
+      <div id="rockpool-creatures-container">
+        <h2 id="choices-header">Rockpool Creatures</h2>
+        <div id="choices-wrapper">
+          <div class="choice"><img src="assets/starfish.png" alt="starfish"></div>
+          <div class="choice"><img src="assets/anenome.png" alt="anenome"></div>
+          <div class="choice"><img src="assets/crab.png" alt="crab"></div>
+          <div class="choice"><img src="assets/urchin.png" alt="urchin"></div>
+          <div class="choice"><img src="assets/jellyfish.png" alt="jellyfish"></div>
+          <div class="choice"><img src="assets/seahorse.png" alt="seahorse"></div>
+        </div>
+      </div>
+
+
+      <div id="key-restart-section">
+
+      <div id="key-container">
+        <div id="key-contents">
+          <div class ="key">
+            <p>Clue Key</p>
+          </div>
+          <div class="key">
+            <p> <img class="clue-img" id="black-clue" src="assets/black shell.png" alt="black shell" > = right creature and the right spot!</p>
+            <p> <img class="clue-img" id="white-clue" src="assets/white shell.png" alt="white shell" > = right creature, wrong place! </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="play-again-container">
+        <button>Play Again!</button>
+      </div>
+
+      </div>
+
+    </div>
+
+</div>
+  </main> 
+  </body>
+  
