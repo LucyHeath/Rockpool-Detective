@@ -10,7 +10,7 @@ function init() {
   // score display
 
   // ? Variables
- 
+
   // choiceArray
   // computerCurrentChoiceArray
   // playerCurrentChoiceArray
