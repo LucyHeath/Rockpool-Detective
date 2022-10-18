@@ -20,7 +20,7 @@ function init() {
     'seahorse',
     'anenome',
     'crab',
-    'jellyfish',
+    'jellyfish'
   ]
 
   let playerCurrentChoiceArray = []
@@ -79,11 +79,13 @@ function init() {
     // * clicking the choices pushes value into playerCurrentChoiceArray , until it holds 4 values
     if (playerCurrentChoiceArray.length < 4) {
       playerCurrentChoiceArray.push(event.target.id)
+      updateDOMRow(playerCurrentChoiceArray, rowsArray[currentRow])
     }
-    console.log('player choice --->', playerCurrentChoiceArray)
+    if (playerCurrentChoiceArray.length === 4) {
+      compareChoiceArrays()
+      disableChoices()
+    }
     // player choice displayed in decoding grid cell
-    updateDOMRow(playerCurrentChoiceArray, rowsArray[currentRow])
-    compareChoiceArrays()
   }
 
   function computerRandomChoice() {
@@ -96,50 +98,35 @@ function init() {
     console.log('computer choice --->', computerCurrentChoiceArray)
   }
   computerRandomChoice()
-  let fullMatches = []
+
   function compareChoiceArrays() {
     //compare full  matches
     // remove direct matches from both arrays, count how many removed and save to new variable fullMatches-? reduce
-    fullMatches = computerCurrentChoiceArray.filter((element, index) => {
-      if (playerCurrentChoiceArray.includes(element)) {
-        fullMatches.push(element)
-        computerCurrentChoiceArray.splice(index, 1)
-      }
+    const matches = playerCurrentChoiceArray.map((element, i) =>
+      element === computerCurrentChoiceArray[i]
+        ? { full: true, index: i, element }
+        : { full: false, index: i, element }
+    )
+
+    const fullMatches = matches.filter((m) => m.full)
+
+    const potentialPartialMatches = matches.filter((m) => !m.full)
+
+    const indexesToCheck = indexesToCheck.forEach((potentialIndex) => {
+      console.log(potentialPartialMatches[potentialIndex].element)
     })
-    console.log('full matches --->', fullMatches)
-    //save number of items in fullMatch array to numBlackKeys variable
-    let numBlackClues = fullMatches.length
-    console.log('number of black keys --->', numBlackClues)
-    //partial matches!!
-    // if player has selected same color twice.... don't want both to be counted as a partial match
-    // To avoid this -keep track of the partial matches we've found so far as we're going through
-    // Each check for a potential match, we should first check the previous partial matches to make sure not counting the same one twice
-    //remove any possible duplicates before running our match checks.to be sure that if we find a match, it isn't a duplicate
-    //includesmethod- check for matches
-    //
+
+    const partialMatches = indexesToCheck.forEach()
+
+    console.log({ fullMatches, potentialPartialMatches, indexesToCheck })
+
+    let numBlackClues
   }
 
-  function updateDOMClueGrid(numBlack, cellArr) {
-    //   // update the DOM clue grid with num clues to match the numBlackClues
-    //   //update cluecells with -index of last child = number of times it is added
-    //   keyCells[cellArr[i]].classList.add(numBlack * numBlack[i])
-  }
-  // updateDOMClueGrid()
+  function updateDOMClueGrid() {}
 
   nextRow()
   compareChoiceArrays()
-
-  function resetGame() {
-    score = 0
-    scoreDisplay.textContent = score
-    endGameTeext.innerHTML
-  }
-
-  function endGame() {
-    if (currentRow > 5) {
-    }
-    alert(score)
-  }
 
   // ? Events
   //click event for player choice
@@ -149,6 +136,9 @@ function init() {
 
   // click on play again button to restart game
   playAgain.addEventListener('click', resetGame)
-}
 
+  function disableChoices() {
+    choice.forEach((c) => c.removeEventListener('click', playerChoice))
+  }
+}
 document.addEventListener('DOMContentLoaded', init)
