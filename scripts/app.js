@@ -3,10 +3,9 @@ function init() {
   const choice = document.querySelectorAll('.choice')
   const decodingCells = document.querySelectorAll('.cell')
   const playAgain = document.querySelector('button')
-
+  const keyCells = document.querySelectorAll('.key-cell')
   // end of game text
   // score display
-  // clue grid cell
 
   // ? Variables
   // rightChoiceWrongPlaceArray
@@ -30,87 +29,105 @@ function init() {
 
   let rowsArray = []
 
-  let row = []
+  let rows = []
+
+  let cells = []
+
+  let cellsArray = []
 
   // ? Execution
 
-  //  loop through cells , make an array of arrays with 4 cells in each array, 6 arrays total (0-5)
+  // prepare decoding grid-  make an array(rowsArray) of arrays(rows)  ----------------->
   for (let i = 0; i < decodingCells.length; i++) {
-    row.push(i)
-    if (row.length >= 4) {
-      rowsArray.push(row)
-      row = []
+    rows.push(i)
+    if (rows.length >= 4) {
+      rowsArray.push(rows)
+      rows = []
     }
   }
-
+  // target current row and save to variable. Starting at rows 5 and working back to rows 0
   let currentRow = rowsArray.length - 1
-  console.log(currentRow)
 
+  //Update the DOM decoding row with choices with player choices -------------------------------->
   function updateDOMRow(choiceArr, rowArr) {
-    //loop through player choice and row array,
+    //loop through player choice and rows array,
     for (let i = 0; i < choiceArr.length; i++) {
-      //update decoding cells with player choice- index of player choice matches index of cell it should appear in
+      //update decoding cells with player choice- index of player choice matches index of cell it should appear in and is updated
       decodingCells[rowArr[i]].classList.add(choiceArr[i])
     }
   }
 
+  // After round completed, the next row will need to be activiated
   function nextRow() {
-    // funciton to fill up next row on grid once first row full- called at end of each round of the game
+    // funciton to fill up next rows on grid once first rows full- called at end of each round of the game
     currentRow--
   }
-  nextRow()
-  console.log(currentRow)
+
+  console.log('current decoding grid rows ---> ', currentRow)
+
+  // - make array of coding grid cells ( which are arrays of key-cells) 6 arrays, 4x key cells in each ------------->
+  for (let i = 0; i < keyCells.length; i++) {
+    cells.push(keyCells[i])
+    if (cells.length >= 4) {
+      cellsArray.push(cells)
+      cells = []
+    }
+  }
+  console.log(cellsArray[currentRow])
 
   function playerChoice(event) {
     // * clicking the choices pushes value into playerCurrentChoiceArray , until it holds 4 values
     if (playerCurrentChoiceArray.length < 4) {
       playerCurrentChoiceArray.push(event.target.id)
-      console.log(playerCurrentChoiceArray)
     }
+    console.log('player choice --->', playerCurrentChoiceArray)
     // player choice displayed in decoding grid cell
     updateDOMRow(playerCurrentChoiceArray, rowsArray[currentRow])
     compareChoiceArrays()
-
-    // move to next row once full
   }
 
   function computerRandomChoice() {
-    // add random selection of four creatures to computerCurrentChoiceArray
+    // generate random selection of four creatures and add to computerCurrentChoiceArray
     while (computerCurrentChoiceArray.length < 4) {
       const randomChoice =
         choiceArray[Math.floor(Math.random() * choiceArray.length)]
       computerCurrentChoiceArray.push(randomChoice)
-      console.log(computerCurrentChoiceArray)
     }
+    console.log('computer choice --->', computerCurrentChoiceArray)
   }
   computerRandomChoice()
-
-  // const arr1 = ['hey', 'hello', 'hi']
-  // const arr2 = ['goodbye', 'hi', 'hey']
-
+  let fullMatches = []
   function compareChoiceArrays() {
-    //full  matches- save direct matches from both arrays to new variable, which is an array called fullMatches
-    let fullMatches = computerCurrentChoiceArray.filter((element) =>
-      playerCurrentChoiceArray.includes(element)
-    )
-    console.log(fullMatches)
-    //save no of items in fullMatch array to numBlackKeys variable
-    let numblackClues = fullMatches.length
-    console.log(numblackClues)
+    //compare full  matches
+    // remove direct matches from both arrays, count how many removed and save to new variable fullMatches-? reduce
+    fullMatches = computerCurrentChoiceArray.filter((element, index) => {
+      if (playerCurrentChoiceArray.includes(element)) {
+        fullMatches.push(element)
+        computerCurrentChoiceArray.splice(index, 1)
+      }
+    })
+    console.log('full matches --->', fullMatches)
+    //save number of items in fullMatch array to numBlackKeys variable
+    let numBlackClues = fullMatches.length
+    console.log('number of black keys --->', numBlackClues)
+    //partial matches!!
+    // if player has selected same color twice.... don't want both to be counted as a partial match
+    // To avoid this -keep track of the partial matches we've found so far as we're going through
+    // Each check for a potential match, we should first check the previous partial matches to make sure not counting the same one twice
+    //remove any possible duplicates before running our match checks.to be sure that if we find a match, it isn't a duplicate
+    //includesmethod- check for matches
+    //
   }
+
+  function updateDOMClueGrid(numBlack, cellArr) {
+    //   // update the DOM clue grid with num clues to match the numBlackClues
+    //   //update cluecells with -index of last child = number of times it is added
+    //   keyCells[cellArr[i]].classList.add(numBlack * numBlack[i])
+  }
+  // updateDOMClueGrid()
+
+  nextRow()
   compareChoiceArrays()
-
-  //partial matches
-  // Problem- if same item selected multiple times by player will count as a partial match
-
-  // Need keep track of the partial matches as through in partialMatches variable
-  // Loop through existing values in partial matches array
-
-  // Each time we check for a potential match, we should first check the previous partial matches we've already found to make sure that we're not counting the same one twice
-
-  // One way to approach this would be to create a "clean" version of potential matches by removing any possible duplicates before running our match checks. That way we can be sure that if we find a match, it isn't a duplicate
-
-  // I'd recommend using a variable outside the loop to store the matches we find, and the includes method to check for a possible match
 
   function resetGame() {
     score = 0
@@ -119,6 +136,8 @@ function init() {
   }
 
   function endGame() {
+    if (currentRow > 5) {
+    }
     alert(score)
   }
 

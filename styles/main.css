@@ -180,8 +180,8 @@ header {
 
 #clue-grid {
   display: grid;
-  grid-template-columns: repeat(1, 100px);
-  grid-template-rows: repeat(6, 100px);
+  grid-template-columns: repeat(1, 110px);
+  grid-template-rows: repeat(6, 110px);
   margin: auto 0;
   background-color: lightgoldenrodyellow;
   border: 8px lightgoldenrodyellow solid;
@@ -332,6 +332,18 @@ header {
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+
+.blackShell {
+  background-image: url('../assets/blackshell.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.whiteShell {
+  background-image: url('../assets/whiteshell.png');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 /* Key and Restart Button Section  */
