@@ -334,13 +334,13 @@ header {
   align-items: center;
 }
 
-.blackShell {
+.full {
   background-image: url('../assets/blackshell.png');
   background-repeat: no-repeat;
   background-size: cover;
 }
 
-.whiteShell {
+.partial {
   background-image: url('../assets/whiteshell.png');
   background-repeat: no-repeat;
   background-size: cover;

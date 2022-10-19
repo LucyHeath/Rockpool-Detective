@@ -3,7 +3,7 @@ function init() {
   const choice = document.querySelectorAll('.choice')
   const decodingCells = document.querySelectorAll('.cell')
   const playAgain = document.querySelector('button')
-  const keyCells = document.querySelectorAll('.key-cell')
+  const clueCells = document.querySelectorAll('.key-cell')
   // end of game text
   // score display
 
@@ -33,59 +33,9 @@ function init() {
 
   let cellsArray = []
 
+  let clueArray = []
+
   // ? Execution
-
-  // ? prepare decoding grid-  make an array(rowsArray) of arrays(rows)
-  for (let i = 0; i < decodingCells.length; i++) {
-    rows.push(i)
-    if (rows.length >= 4) {
-      rowsArray.push(rows)
-      rows = []
-    }
-  }
-
-  // target current row and save to variable. Starting at rows 5 and working back to rows 0
-  let currentRow = rowsArray.length - 1
-
-  // ? Update the DOM decoding row with choices with player choices
-  function updateDOMRow(choiceArr, rowArr) {
-    //loop through player choice and rows array,
-    for (let i = 0; i < choiceArr.length; i++) {
-      //update decoding cells with player choice- index of player choice matches index of cell it should appear in and is updated
-      decodingCells[rowArr[i]].classList.add(choiceArr[i])
-    }
-  }
-  console.log('current decoding grid rows ---> ', currentRow)
-
-  // - make array of coding grid cells ( which are arrays of key-cells) 6 arrays, 4x key cells in each ------------->
-  for (let i = 0; i < keyCells.length; i++) {
-    cells.push(keyCells[i])
-    if (cells.length >= 4) {
-      cellsArray.push(cells)
-      cells = []
-    }
-  }
-  console.log('current key cells--->', cellsArray[currentRow])
-
-  // After round completed, the next row will need to be activiated
-  function nextRow() {
-    // funciton to fill up next rows on grid once first rows full- called at end of each round of the game
-    currentRow--
-  }
-
-  function playerChoice(event) {
-    // * clicking the choices pushes value into playerCurrentChoiceArray , until it holds 4 values
-    if (playerCurrentChoiceArray.length < 4) {
-      playerCurrentChoiceArray.push(event.target.id)
-      // player choice displayed in decoding grid cell
-      updateDOMRow(playerCurrentChoiceArray, rowsArray[currentRow])
-    }
-    if (playerCurrentChoiceArray.length === 4) {
-      compareChoiceArrays()
-      disableChoices()
-      nextRow()
-    }
-  }
 
   function computerRandomChoice() {
     // generate random selection of four creatures and add to computerCurrentChoiceArray
@@ -98,6 +48,57 @@ function init() {
   }
 
   computerRandomChoice()
+
+  // ? prepare decoding grid-  make an array(rowsArray) of arrays(rows)
+  for (let i = 0; i < decodingCells.length; i++) {
+    rows.push(i)
+    if (rows.length >= 4) {
+      rowsArray.push(rows)
+      rows = []
+    }
+  }
+  // target current row and save to variable. Starting at rows 5 and working back to rows 0
+  let currentRow = rowsArray.length - 1
+
+  function updateDOMRow(choiceArr, rowArr) {
+    // ? Update the DOM decoding row with choices with player choices
+    //loop through player choice and rows array,
+    for (let i = 0; i < choiceArr.length; i++) {
+      //update decoding cells with player choice- index of player choice matches index of cell it should appear in and is updated
+      decodingCells[rowArr[i]].classList.add(choiceArr[i])
+    }
+  }
+  console.log('current decoding grid rows ---> ', currentRow)
+
+  function nextRow() {
+    currentRow--
+  }
+
+  // - make array of coding grid cells
+  for (let i = 0; i < clueCells.length; i++) {
+    cells.push(clueCells[i])
+    if (cells.length >= 4) {
+      cellsArray.push(cells)
+      cells = []
+    }
+  }
+  console.log('current key cells--->', cellsArray[currentRow])
+
+  function playerChoice(event) {
+    console.log('calling player choice')
+    // * clicking the choices pushes value into playerCurrentChoiceArray , until it holds 4 values
+    if (playerCurrentChoiceArray.length < 4) {
+      playerCurrentChoiceArray.push(event.target.id)
+      // player choice displayed in decoding grid cell
+      updateDOMRow(playerCurrentChoiceArray, rowsArray[currentRow])
+    }
+    if (playerCurrentChoiceArray.length === 4) {
+      compareChoiceArrays()
+      if (currentRow === 5) {
+        disableChoices()
+      }
+    }
+  }
 
   function compareChoiceArrays() {
     const matches = {
@@ -126,37 +127,36 @@ function init() {
       }
     }
 
+    clueArray = Object.values(matches.player)
+    console.log('clue array-->', clueArray)
     console.log('player choice', playerCurrentChoiceArray)
-
-    console.log('matches', matches)
-    console.log(Object.values(matches.player))
+    updateDOMClue(cellsArray[currentRow], clueArray)
   }
 
-  //   let numBlackClues = fullMatches.length
-  //   console.log('number of black keys --->', numBlackClues)
-  // }
+  function updateDOMClue(cellArr, clueArr) {
+    console.log(cellArr)
+    for (let i = 0; i < clueArr.length; i++) {
+      cellArr[i].classList.add(clueArr[i])
+    }
+    nextRow()
+    playerCurrentChoiceArray = []
+    // enableChoices()
+  }
 
-  // function UpdateDOMBlack(black, cellArr) {
-  //   //loop through black keys and cells array,
-  //   for (let i = 0; i < black.length; i++) {
-  //     //update clue grid cells numblack clues= to the array.length
-  //     clueCells[cellArr[i]].classList.add(black[i])
-  //   }
-  //   console.log(updateDOMBlack)
-  // }
-  // updateDOMBlack(numBlackClues, cellsArray[currentRow])
+  console.log(clueArray)
 
   function resetGame() {}
 
-  // nextRow()
-  // compareChoiceArrays()
-
   // ? Events
   //click event for player choice
-  choice.forEach((ch) => {
-    ch.addEventListener('click', playerChoice)
-  })
-
+  function enableChoices() {
+    console.log('calling enable chouces')
+    choice.forEach((c) => {
+      console.log(c)
+      c.addEventListener('click', playerChoice)
+    })
+  }
+  enableChoices()
   // click on play again button to restart game
   playAgain.addEventListener('click', resetGame)
 
