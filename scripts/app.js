@@ -8,8 +8,6 @@ function init() {
   // score display
 
   // ? Variables
-  // rightChoiceWrongPlaceArray
-  // rightChoiceRightPlaceArray
   // numBlackClues
   // numWhiteClues
   // Score
@@ -37,7 +35,7 @@ function init() {
 
   // ? Execution
 
-  // prepare decoding grid-  make an array(rowsArray) of arrays(rows)  ----------------->
+  // ? prepare decoding grid-  make an array(rowsArray) of arrays(rows)
   for (let i = 0; i < decodingCells.length; i++) {
     rows.push(i)
     if (rows.length >= 4) {
@@ -45,10 +43,11 @@ function init() {
       rows = []
     }
   }
+
   // target current row and save to variable. Starting at rows 5 and working back to rows 0
   let currentRow = rowsArray.length - 1
 
-  //Update the DOM decoding row with choices with player choices -------------------------------->
+  // ? Update the DOM decoding row with choices with player choices
   function updateDOMRow(choiceArr, rowArr) {
     //loop through player choice and rows array,
     for (let i = 0; i < choiceArr.length; i++) {
@@ -56,13 +55,6 @@ function init() {
       decodingCells[rowArr[i]].classList.add(choiceArr[i])
     }
   }
-
-  // After round completed, the next row will need to be activiated
-  function nextRow() {
-    // funciton to fill up next rows on grid once first rows full- called at end of each round of the game
-    currentRow--
-  }
-
   console.log('current decoding grid rows ---> ', currentRow)
 
   // - make array of coding grid cells ( which are arrays of key-cells) 6 arrays, 4x key cells in each ------------->
@@ -73,19 +65,26 @@ function init() {
       cells = []
     }
   }
-  console.log(cellsArray[currentRow])
+  console.log('current key cells--->', cellsArray[currentRow])
+
+  // After round completed, the next row will need to be activiated
+  function nextRow() {
+    // funciton to fill up next rows on grid once first rows full- called at end of each round of the game
+    currentRow--
+  }
 
   function playerChoice(event) {
     // * clicking the choices pushes value into playerCurrentChoiceArray , until it holds 4 values
     if (playerCurrentChoiceArray.length < 4) {
       playerCurrentChoiceArray.push(event.target.id)
+      // player choice displayed in decoding grid cell
       updateDOMRow(playerCurrentChoiceArray, rowsArray[currentRow])
     }
     if (playerCurrentChoiceArray.length === 4) {
       compareChoiceArrays()
       disableChoices()
+      nextRow()
     }
-    // player choice displayed in decoding grid cell
   }
 
   function computerRandomChoice() {
@@ -97,36 +96,60 @@ function init() {
     }
     console.log('computer choice --->', computerCurrentChoiceArray)
   }
+
   computerRandomChoice()
 
   function compareChoiceArrays() {
-    //compare full  matches
-    // remove direct matches from both arrays, count how many removed and save to new variable fullMatches-? reduce
-    const matches = playerCurrentChoiceArray.map((element, i) =>
-      element === computerCurrentChoiceArray[i]
-        ? { full: true, index: i, element }
-        : { full: false, index: i, element }
-    )
+    const matches = {
+      computer: {},
+      player: {}
+    }
 
-    const fullMatches = matches.filter((m) => m.full)
+    for (let i = 0; i < computerCurrentChoiceArray.length; i++) {
+      if (computerCurrentChoiceArray[i] === playerCurrentChoiceArray[i]) {
+        matches.computer[i] = 'full'
+        matches.player[i] = 'full'
+      }
+    }
 
-    const potentialPartialMatches = matches.filter((m) => !m.full)
+    for (let i = 0; i < computerCurrentChoiceArray.length; i++) {
+      if (!matches.computer[i]) {
+        playerCurrentChoiceArray.forEach((choice, index) => {
+          if (
+            !matches.player[index] &&
+            choice === computerCurrentChoiceArray[i]
+          ) {
+            matches.computer[i] = 'partial'
+            matches.player[index] = 'partial'
+          }
+        })
+      }
+    }
 
-    const indexesToCheck = indexesToCheck.forEach((potentialIndex) => {
-      console.log(potentialPartialMatches[potentialIndex].element)
-    })
+    console.log('player choice', playerCurrentChoiceArray)
 
-    const partialMatches = indexesToCheck.forEach()
-
-    console.log({ fullMatches, potentialPartialMatches, indexesToCheck })
-
-    let numBlackClues
+    console.log('matches', matches)
+    console.log(Object.values(matches.player))
   }
 
-  function updateDOMClueGrid() {}
+  //   let numBlackClues = fullMatches.length
+  //   console.log('number of black keys --->', numBlackClues)
+  // }
 
-  nextRow()
-  compareChoiceArrays()
+  // function UpdateDOMBlack(black, cellArr) {
+  //   //loop through black keys and cells array,
+  //   for (let i = 0; i < black.length; i++) {
+  //     //update clue grid cells numblack clues= to the array.length
+  //     clueCells[cellArr[i]].classList.add(black[i])
+  //   }
+  //   console.log(updateDOMBlack)
+  // }
+  // updateDOMBlack(numBlackClues, cellsArray[currentRow])
+
+  function resetGame() {}
+
+  // nextRow()
+  // compareChoiceArrays()
 
   // ? Events
   //click event for player choice
