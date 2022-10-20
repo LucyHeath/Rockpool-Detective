@@ -38,6 +38,7 @@ main {
 
 p {
   margin: 10px;
+  padding: 10px;
 }
 
 h1 {
@@ -50,11 +51,13 @@ h2 {
   font-size: 30px;
   text-align: center;
   margin: 0 auto;
+  padding: 10px;
 }
 
 h3 {
   text-align: center;
   margin: 0 auto;
+  padding: 10px;
 }
 
 /* Header Section */
@@ -172,7 +175,6 @@ header {
   font-family: 'Karla', sans-serif;
   font-weight: bold;
   border-radius: 60px;
-  /* border: 2px #f1a83f solid; */
   box-shadow: 0 0 10px 0 #f1a83f;
 }
 
@@ -192,7 +194,6 @@ header {
 #clue-wrapper {
   display: flex;
   grid-column: 100x;
-  /* grid-row: 2/3; */
   text-align: center;
   margin: 0 auto 20px 10px;
 }
@@ -212,7 +213,6 @@ header {
   grid-template-columns: repeat(2, 18px);
   grid-template-rows: repeat(2, 18px);
   margin: auto;
-  /* border: 1px #f1a83f dotted; */
   box-shadow: 0 0 10px 0 #f1a83f;
   background-color: lightgoldenrodyellow;
   border-radius: 15px;
@@ -234,7 +234,6 @@ header {
 /* Choices Section  */
 
 #rockpool-creatures-container {
-  /* background-color: lightgoldenrodyellow; */
   box-shadow: 0 0 20px 0 #f1a83f;
   border-radius: 15px;
   margin: 20px;
@@ -385,41 +384,20 @@ button {
 /* The actual popup (appears on top) */
 .gameOverScreen .gameOverText {
   visibility: hidden;
-  width: 500px;
-  height: 500px;
+  width: 600px;
+  height: 600px;
   background-color: #eec963;
   color: #fff;
   box-shadow: 0 0 20px 20px #e98145;
   text-align: center;
   border-radius: 300px;
-  padding-top: 180px;
+  padding-top: 160px;
   position: absolute;
   z-index: 1;
   bottom: auto;
   left: 50%;
   margin-left: -300px;
   font-size: 80px;
-  transform: scale(1);
-  animation: pulse 2s infinite;
-}
-
-/* Popup arrow
-.gameOverScreen .gameOverText::after {
-  content: '';
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  margin-left: -5px;
-  border-width: 5px;
-  border-style: solid;
-  border-color: #555 transparent transparent transparent;
-} */
-
-/* Toggle this class when clicking on the popup container (hide and show the popup) */
-.gameOverScreen .show {
-  visibility: visible;
-  -webkit-animation: fadeIn 1s;
-  animation: fadeIn 1s;
 }
 
 /* Add animation (fade in the popup) */
@@ -441,6 +419,13 @@ button {
   }
 }
 
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.gameOverScreen .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s;
+}
+
 /* Desktop up - once gets above phone screen size of 992 then apply this */
 
 @media (min-width: 992px) {
@@ -448,9 +433,10 @@ button {
     flex-direction: row;
   }
 
-  #protagonist-container {
-    /* flex-direction: r; */
-  }
+  /* #protagonist-container {
+    flex-direction: column;
+  } */
+
   #protagonist-img {
     justify-content: center;
     width: 40%;
@@ -467,6 +453,11 @@ button {
 
   #choices-key-restart-container {
     flex-direction: row;
+  }
+
+  .gameOverScreen .gameOverText {
+    top: -300px;
+    left: -150px;
   }
 }
 

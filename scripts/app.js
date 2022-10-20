@@ -131,7 +131,7 @@ function init() {
     )
     if (playerWon) {
       gameOver()
-      gameOverText.innerHTML = '🌟Game Over!🌟 🦭You won!🦭 '
+      gameOverText.innerHTML = '🌟Game Over!🌟  Well Done 🔍 !  Happy Sammy 🦭!'
       disableChoices()
     }
     clueArray = Object.values(matches.player)
@@ -147,8 +147,17 @@ function init() {
     if (currentRow === 0 && playerCurrentChoiceArray.length >= 4) {
       disableChoices()
       gameOver()
-      gameOverText.innerHTML = gameOverText.innerHTML =
-        'Game Over!     You lost!  '
+
+      const playerWon = computerCurrentChoiceArray.every(
+        (item, i) => item === playerCurrentChoiceArray[i]
+      )
+
+      if (playerWon) {
+        gameOverText.innerHTML =
+          '🌟Game Over!🌟  Well Done 🔍 !  Happy Sammy 🦭!'
+      } else {
+        gameOverText.innerHTML = '💔Game Over!💔 Poor Sammy 🦭 !'
+      }
     }
     nextRow()
     playerCurrentChoiceArray = []
