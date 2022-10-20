@@ -4,13 +4,8 @@ function init() {
   const decodingCells = document.querySelectorAll('.cell')
   const playAgain = document.querySelector('button')
   const clueCells = document.querySelectorAll('.key-cell')
-  // end of game text
-  // score display
 
   // ? Variables
-  // numBlackClues
-  // numWhiteClues
-  // Score
 
   const choiceArray = [
     'starfish',
@@ -49,14 +44,17 @@ function init() {
 
   computerRandomChoice()
 
-  // ? prepare decoding grid-  make an array(rowsArray) of arrays(rows)
-  for (let i = 0; i < decodingCells.length; i++) {
-    rows.push(i)
-    if (rows.length >= 4) {
-      rowsArray.push(rows)
-      rows = []
+  function prepareGame() {
+    // ? prepare decoding grid-  make an array(rowsArray) of arrays(rows)
+    for (let i = 0; i < decodingCells.length; i++) {
+      rows.push(i)
+      if (rows.length >= 4) {
+        rowsArray.push(rows)
+        rows = []
+      }
     }
   }
+  prepareGame()
   // target current row and save to variable. Starting at rows 5 and working back to rows 0
   let currentRow = rowsArray.length - 1
 
@@ -74,14 +72,17 @@ function init() {
     currentRow--
   }
 
-  // - make array of coding grid cells
-  for (let i = 0; i < clueCells.length; i++) {
-    cells.push(clueCells[i])
-    if (cells.length >= 4) {
-      cellsArray.push(cells)
-      cells = []
+  function prepareClue() {
+    // - make array of coding grid cells
+    for (let i = 0; i < clueCells.length; i++) {
+      cells.push(clueCells[i])
+      if (cells.length >= 4) {
+        cellsArray.push(cells)
+        cells = []
+      }
     }
   }
+  prepareClue()
   console.log('current key cells--->', cellsArray[currentRow])
 
   function playerChoice(event) {
@@ -145,8 +146,6 @@ function init() {
 
   console.log(clueArray)
 
-  function resetGame() {}
-
   // ? Events
   //click event for player choice
   function enableChoices() {
@@ -157,11 +156,32 @@ function init() {
     })
   }
   enableChoices()
-  // click on play again button to restart game
-  playAgain.addEventListener('click', resetGame)
+
+  function resetGame() {
+    for (let i = 0; i < decodingCells.length; i++) {
+      decodingCells[i].classList.remove(...choiceArray)
+    }
+    for (let i = 0; i < clueCells.length; i++) {
+      clueCells[i].classList.remove(...clueArray)
+    }
+
+    playerCurrentChoiceArray = []
+    computerCurrentChoiceArray = []
+    rowsArray = []
+    rows = []
+    cells = []
+    cellsArray = []
+    clueArray = []
+    prepareGame()
+    computerRandomChoice()
+    prepareClue()
+    currentRow = rowsArray.length - 1
+  }
+  console.log(decodingCells)
 
   function disableChoices() {
     choice.forEach((c) => c.removeEventListener('click', playerChoice))
   }
+  playAgain.addEventListener('click', resetGame)
 }
 document.addEventListener('DOMContentLoaded', init)
