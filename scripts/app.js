@@ -4,6 +4,7 @@ function init() {
   const decodingCells = document.querySelectorAll('.cell')
   const playAgain = document.querySelector('button')
   const clueCells = document.querySelectorAll('.key-cell')
+  const gameOverScreen = document.getElementById('myPopup')
 
   // ? Variables
 
@@ -66,7 +67,6 @@ function init() {
       decodingCells[rowArr[i]].classList.add(choiceArr[i])
     }
   }
-  console.log('current decoding grid rows ---> ', currentRow)
 
   function nextRow() {
     currentRow--
@@ -83,10 +83,8 @@ function init() {
     }
   }
   prepareClue()
-  console.log('current key cells--->', cellsArray[currentRow])
 
   function playerChoice(event) {
-    console.log('calling player choice')
     // * clicking the choices pushes value into playerCurrentChoiceArray , until it holds 4 values
     if (playerCurrentChoiceArray.length < 4) {
       playerCurrentChoiceArray.push(event.target.id)
@@ -97,6 +95,8 @@ function init() {
       compareChoiceArrays()
       if (currentRow === 5) {
         disableChoices()
+        gameOver()
+        console.log(gameOver)
       }
     }
   }
@@ -141,30 +141,29 @@ function init() {
     }
     nextRow()
     playerCurrentChoiceArray = []
-    // enableChoices()
   }
 
-  console.log(clueArray)
+  function gameOver() {
+    gameOverScreen.classList.toggle('show')
+  }
+  gameOver()
 
   // ? Events
-  //click event for player choice
   function enableChoices() {
-    console.log('calling enable chouces')
     choice.forEach((c) => {
-      console.log(c)
       c.addEventListener('click', playerChoice)
     })
   }
   enableChoices()
 
   function resetGame() {
+    gameOverScreen.classList.toggle('show')
     for (let i = 0; i < decodingCells.length; i++) {
       decodingCells[i].classList.remove(...choiceArray)
     }
     for (let i = 0; i < clueCells.length; i++) {
       clueCells[i].classList.remove(...clueArray)
     }
-
     playerCurrentChoiceArray = []
     computerCurrentChoiceArray = []
     rowsArray = []
@@ -177,7 +176,6 @@ function init() {
     prepareClue()
     currentRow = rowsArray.length - 1
   }
-  console.log(decodingCells)
 
   function disableChoices() {
     choice.forEach((c) => c.removeEventListener('click', playerChoice))
