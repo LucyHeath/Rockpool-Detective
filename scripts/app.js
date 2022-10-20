@@ -5,6 +5,7 @@ function init() {
   const playAgain = document.querySelector('button')
   const clueCells = document.querySelectorAll('.key-cell')
   const gameOverScreen = document.getElementById('myPopup')
+  const gameOverText = document.querySelector('.gameOverText')
 
   // ? Variables
 
@@ -93,11 +94,8 @@ function init() {
     }
     if (playerCurrentChoiceArray.length === 4) {
       compareChoiceArrays()
-      if (currentRow === 5) {
-        disableChoices()
-        gameOver()
-        console.log(gameOver)
-      }
+      console.log(currentRow)
+      console.log(playerCurrentChoiceArray)
     }
   }
 
@@ -128,9 +126,16 @@ function init() {
       }
     }
 
+    const playerWon = computerCurrentChoiceArray.every(
+      (item, i) => item === playerCurrentChoiceArray[i]
+    )
+    if (playerWon) {
+      gameOver()
+      gameOverText.innerHTML = '🌟Game Over!🌟 🦭You won!🦭 '
+      disableChoices()
+    }
     clueArray = Object.values(matches.player)
-    console.log('clue array-->', clueArray)
-    console.log('player choice', playerCurrentChoiceArray)
+
     updateDOMClue(cellsArray[currentRow], clueArray)
   }
 
@@ -139,14 +144,19 @@ function init() {
     for (let i = 0; i < clueArr.length; i++) {
       cellArr[i].classList.add(clueArr[i])
     }
+    if (currentRow === 0 && playerCurrentChoiceArray.length >= 4) {
+      disableChoices()
+      gameOver()
+      gameOverText.innerHTML = gameOverText.innerHTML =
+        'Game Over!     You lost!  '
+    }
     nextRow()
     playerCurrentChoiceArray = []
   }
 
   function gameOver() {
-    gameOverScreen.classList.toggle('show')
+    gameOverScreen.classList.add('show')
   }
-  gameOver()
 
   // ? Events
   function enableChoices() {
@@ -157,12 +167,13 @@ function init() {
   enableChoices()
 
   function resetGame() {
-    gameOverScreen.classList.toggle('show')
+    // gameOverScreen.classList.toggle('show')
+    gameOverScreen.classList.remove('show')
     for (let i = 0; i < decodingCells.length; i++) {
       decodingCells[i].classList.remove(...choiceArray)
     }
     for (let i = 0; i < clueCells.length; i++) {
-      clueCells[i].classList.remove(...clueArray)
+      clueCells[i].classList.remove('partial', 'full')
     }
     playerCurrentChoiceArray = []
     computerCurrentChoiceArray = []
@@ -174,6 +185,7 @@ function init() {
     prepareGame()
     computerRandomChoice()
     prepareClue()
+    enableChoices()
     currentRow = rowsArray.length - 1
   }
 
@@ -181,5 +193,6 @@ function init() {
     choice.forEach((c) => c.removeEventListener('click', playerChoice))
   }
   playAgain.addEventListener('click', resetGame)
+  console.log(clueArray)
 }
 document.addEventListener('DOMContentLoaded', init)
