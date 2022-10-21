@@ -91,6 +91,7 @@ header {
 }
 
 /* Game Container Section */
+
 #game-container {
   display: flex;
   margin: 0 auto;
@@ -100,6 +101,7 @@ header {
 }
 
 /* Story and Rules Section  */
+
 #protagonist-img {
   display: flex;
   margin: 0;
@@ -305,6 +307,7 @@ header {
 }
 
 /* Key Section */
+
 .clue-img {
   height: 30px;
   width: 30 px;
@@ -375,6 +378,7 @@ button {
 /* Game over pop-up*/
 
 /* Popup container */
+
 .gameOverScreen {
   position: relative;
   display: inline-block;
@@ -382,6 +386,7 @@ button {
 }
 
 /* The actual popup (appears on top) */
+
 .gameOverScreen .gameOverText {
   visibility: hidden;
   width: 600px;
@@ -401,6 +406,7 @@ button {
 }
 
 /* Add animation (fade in the popup) */
+
 @-webkit-keyframes fadeIn {
   from {
     opacity: 0;
@@ -420,6 +426,7 @@ button {
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
+
 .gameOverScreen .show {
   visibility: visible;
   -webkit-animation: fadeIn 1s;
