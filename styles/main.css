@@ -433,10 +433,6 @@ button {
     flex-direction: row;
   }
 
-  /* #protagonist-container {
-    flex-direction: column;
-  } */
-
   #protagonist-img {
     justify-content: center;
     width: 40%;
