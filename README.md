@@ -1,6 +1,6 @@
 # Rockpool Detective - GA Project One - 7 Days
 
-![Rockpool Detective](https://)
+![Rockpool Detective](https://i.imgur.com/1E7ZomE.png)
 
 Rockpool Detective is based on the classic code-breaking game Mastermind.  A hidden pattern of four Rockpool Creatures is generated at the start of each game and the player must try to guess the correct pattern within six attempts. The player is given clues based on how close they are to the correct pattern as they go, which helps them to inform their next guess. 
 
