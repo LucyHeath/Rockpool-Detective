@@ -97,7 +97,23 @@ The `updateDOMRow()` function is then called within `playerChoice()`.
 <img width="534" alt="Screenshot 2023-01-04 at 17 05 00" src="https://user-images.githubusercontent.com/114397080/210610109-c5d5b0ef-6518-4dfa-acdb-89e6d3de0197.png">
 
 ### Comparing the secret code with the player choice
-Initially I used multiple array methods for this, however a simpler solution was to create objects for the player and the computer and pass either `full` or `partial` as the values for each key (0 to 3), representing the four choices.The diagram shows how the partial and full matching process works.
+
+#### Winning and losing
+
+The `computerCurrentChoiceArray` and the `playerCurrentChoiceArray` are compared to see if they are a direct match. If they are the player wins and the gameover screen class is added to the display, and the winning text is shown.
+
+<img width="479" alt="Screenshot 2023-01-05 at 17 26 25" src="https://user-images.githubusercontent.com/114397080/210842775-0fbfd6f7-0ead-4b4e-8927-606db9d48880.png">
+
+<img width="633" alt="Screenshot 2023-01-04 at 17 07 17" src="https://user-images.githubusercontent.com/114397080/210610534-913c7cfa-c99f-462d-8550-05726b43e959.png">
+
+If the player has not won by the last row of the clue grid, the gameover screen class is added and displays the losing text. 
+
+<img width="631" alt="Screenshot 2023-01-04 at 17 08 08" src="https://user-images.githubusercontent.com/114397080/210610672-d4906a6f-f387-4c0c-81d1-432cd08c4e13.png">
+
+### Assigning clues 
+For every round of the game clues are assigned to provide hints to the player. 
+
+Initially I used multiple array methods to compare the player choice with the random code,  however a simpler solution was to create objects for the player and the computer and pass either `full` or `partial` as the values for each key (0 to 3), representing the four choices.
 
 #### Comparing full matches 
 Firstly, I cycled through the `computerCurrentChoiceArray` and compared it one by one with the values in the `playerCurrentChoiceArray`. The value and the index position is compared, and if both match the value `full` is added into both the player and computer arrays at the corresponding key (e.g. if `starfish` is direct match for the value at index 3 in the `playerChoice`, `full` is added to key 3 in both objects). 
@@ -107,27 +123,31 @@ Firstly, I cycled through the `computerCurrentChoiceArray` and compared it one b
 ![Screenshot 2023-01-05 at 17 09 45](https://user-images.githubusercontent.com/114397080/210839669-a6fe3dbf-a795-4f12-98ae-120956ebae7f.png)
 
 ### Comparing the partial matches
-Secondly I checked to see if the value int the `computerCurrentChoiceArray` value matched any value in the `playerCurrentChoiceArray`. If the key already had a value (`full`) this would not be in compared. The partial matches would be given a value of `partial` in both objects. 
+Secondly I checked to see if the value int the `computerCurrentChoiceArray` value matched any value in the `playerCurrentChoiceArray`. The partial matches would be given a value of `partial` in both objects.  If the key already had a value (`full`) no value would be added to the object, preventing duplication.
 
 ![Screenshot 2023-01-05 at 17 10 31](https://user-images.githubusercontent.com/114397080/210839819-817b7c0f-9334-4ea9-827d-a96e1cd71456.png)
 
 ### Giving clues to the player choice
 After the player makes their choices that round, clues are allocated. 
 
-
 I targeted the DOM elements for the clue grid  (clue cells) in the same way, to display the “partial” and “full” matches. The matches are generated and passed into the empty `clueArray` at the end of each round. 
 
 <img width="367" alt="Screenshot 2023-01-04 at 17 06 33" src="https://user-images.githubusercontent.com/114397080/210610382-8efc0ed1-d156-42bd-ba07-a3df02861514.png">
+
 
 The `updateDOMClue` gets called within a function called `compareChoices()`
 
 <img width="382" alt="Screenshot 2023-01-04 at 17 06 57" src="https://user-images.githubusercontent.com/114397080/210610459-b2b7644f-d7fc-4747-8cad-3663f4f71f3e.png">
 
+## Resetting the game
+On click of the play again,
+![Screenshot 2023-01-05 at 17 41 56](https://user-images.githubusercontent.com/114397080/210845490-3042d7dc-0c1f-46c4-8ae8-36235da62f40.png)
+
+![Screenshot 2023-01-05 at 17 41 07](https://user-images.githubusercontent.com/114397080/210845356-737019b9-a859-4d9d-9b48-e35967917049.png)
+
 ## Challenges
 The main difficulty in this project was the logic behind comparing the player choice against the randomly generated code. Comparing full matches was more straightforward, but the partial matches were more problematic, as I didn't want duplicates in the players, or any of the full matches to be counted twice.
 
-<img width="633" alt="Screenshot 2023-01-04 at 17 07 17" src="https://user-images.githubusercontent.com/114397080/210610534-913c7cfa-c99f-462d-8550-05726b43e959.png">
-<img width="631" alt="Screenshot 2023-01-04 at 17 08 08" src="https://user-images.githubusercontent.com/114397080/210610672-d4906a6f-f387-4c0c-81d1-432cd08c4e13.png">
 
 ## Wins
 * Responsive design for smaller screens and phones
