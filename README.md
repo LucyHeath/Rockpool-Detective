@@ -20,7 +20,7 @@ JavaScript, HTML, CSS.
 
 ### Project management
 ![Trello](https://i.imgur.com/r5AuFa2.png)
-I used Trello to plan the project which enabled me to keep all notes and ideas in the same place, map a timeline and monitor progress. This kept me focussed and helped with achieving the key goals of the brief. 
+I used [Trello](https://trello.com/) to plan the project which enabled me to keep all notes and ideas in the same place, map a timeline and monitor progress. This kept me focussed and helped with achieving the key goals of the brief. 
 
 ### Wireframe
 ![Wireframe](https://i.imgur.com/K3FRWtw.png)
