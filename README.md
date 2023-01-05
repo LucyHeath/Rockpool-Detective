@@ -82,9 +82,9 @@ I created the `disableChoices()` with a `removeEventListener` to disable the cli
 ### Preparing the grids for play
 <img width="643" alt="Screenshot 2023-01-04 at 17 01 52" src="https://user-images.githubusercontent.com/114397080/210609502-9a96ee5a-4e0b-4f63-b899-15e4357a6109.png">
 
-In this game, each row of the grid is equivalent to a round of the game. During each round, four choices are placed in a row in the decoding grid,before being appraised with clues. 
+In this game, each row of the grid is equivalent to a round of the game. During each round, four choices are placed in a row in the decoding grid, before being appraised with clues. 
 
-I therefore needed to transform my HTML list into arrays of four `decodingCells` (“rows”). These six arrays are held within the `rowsArray`. The starting row is the bottom of the grid and the last array of cells in the `rowsArray. 
+I therefore needed to transform my HTML list into arrays of four `decodingCells` (“rows”). These six arrays are held within the `rowsArray`. The starting row is the bottom of the grid and the last array of cells in the `rowsArray`. 
 <img width="734" alt="Screenshot 2023-01-05 at 16 28 15" src="https://user-images.githubusercontent.com/114397080/210830776-42fd4755-3d75-4b46-88f9-2e77ae501649.png">
 
 Similarly for the clue cells, I created the `prepareClue` function in which the `cellsArray` is built, containing six “cells” arrays , each with four targetable `clueCells` within them. These correspond to the number of clues which can be awarded each round. 
@@ -128,26 +128,20 @@ Secondly I checked to see if the value int the `computerCurrentChoiceArray` valu
 ![Screenshot 2023-01-05 at 17 10 31](https://user-images.githubusercontent.com/114397080/210839819-817b7c0f-9334-4ea9-827d-a96e1cd71456.png)
 
 #### Displaying clues 
-After the player makes their choices that round, clues are allocated. 
+After the player makes their choices that round, they are compared so clues can be allocated.
 
-I targeted the DOM elements for the clue grid  (clue cells) in the same way, to display the “partial” and “full” matches. The matches are generated and passed into the empty `clueArray` at the end of each round. 
+To to display the number and colour of clue shells required, any match values (`full`, `partial`) are passed into the `clueArray` at the end of each round. This is displayed in the DOM as either white ( value = `partial`) or black (value = `full`)shells. 
 
 <img width="367" alt="Screenshot 2023-01-04 at 17 06 33" src="https://user-images.githubusercontent.com/114397080/210610382-8efc0ed1-d156-42bd-ba07-a3df02861514.png">
 
-
-The `updateDOMClue` gets called within a function called `compareChoices()`
-
-<img width="382" alt="Screenshot 2023-01-04 at 17 06 57" src="https://user-images.githubusercontent.com/114397080/210610459-b2b7644f-d7fc-4747-8cad-3663f4f71f3e.png">
-
 ## Resetting the game
-On click of the play again,
+This occurs on-click of the "play again" button, or at game-over. 
 ![Screenshot 2023-01-05 at 17 41 56](https://user-images.githubusercontent.com/114397080/210845490-3042d7dc-0c1f-46c4-8ae8-36235da62f40.png)
 
 ![Screenshot 2023-01-05 at 17 41 07](https://user-images.githubusercontent.com/114397080/210845356-737019b9-a859-4d9d-9b48-e35967917049.png)
 
 ## Challenges
 The main difficulty in this project was the logic behind comparing the player choice against the randomly generated code. Comparing full matches was more straightforward, but the partial matches were more problematic, as I didn't want duplicates in the players, or any of the full matches to be counted twice.
-
 
 ## Wins
 * Responsive design for smaller screens and phones
@@ -169,4 +163,4 @@ I am aware of an issue with white clue keys when the game is restarted using the
 * Make it possible to clear one row on the decoding grid, rather than resetting the entire game if the player wishes to change their choice.
 * Enable the player to drag and drop choices, and move them around on the decoding grid until they are happy, then submit guesses for each row via a button click. 
 * Game difficulty could be altered e.g made easier for children with fewer choices, shorter rows and more guesses (longer grid). 
-* I could include more CSS keyframes animation to make it more visually appealing, for example highlighting the player choices using border pulse or shaking the Play Again button after Game Over.
+* I could include more CSS keyframes animation to make it more visually appealing, for example highlighting the player choices using border pulse or shaking the "play again" button after game-over.
