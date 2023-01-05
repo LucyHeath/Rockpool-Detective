@@ -96,19 +96,25 @@ This function  displays  the values in the `playerChoice array`, based on the in
 The `updateDOMRow()` function is then called within `playerChoice()`.
 <img width="534" alt="Screenshot 2023-01-04 at 17 05 00" src="https://user-images.githubusercontent.com/114397080/210610109-c5d5b0ef-6518-4dfa-acdb-89e6d3de0197.png">
 
-### Comparing secret code with the player choice
+### Comparing the secret code with the player choice
 Initially I used multiple array methods for this, however a simpler solution was to create objects for the player and the computer and pass either `full` or `partial` as the values for each key (0 to 3), representing the four choices.The diagram shows how the partial and full matching process works.
+
+#### Comparing full matches 
+Firstly, I cycled through the `computerCurrentChoiceArray` and compared it one by one with the values in the `playerCurrentChoiceArray`. The value and the index position is compared, and if both match the value `full` is added into both the player and computer arrays at the corresponding key (e.g. if `starfish` is direct match for the value at index 3 in the `playerChoice`, `full` is added to key 3 in both objects). 
+
 ![Screenshot 2023-01-05 at 17 06 03](https://user-images.githubusercontent.com/114397080/210839017-6fc79c02-90ea-4c97-8a31-47e99738dd92.png)
 
-First full matches were checked. I cycled through the `computerCurrentChoiceArray` and compared it one by one with the values in the `playerCurrentChoiceArray`. The value and the index position is compared, and if both match the value `full` is added into both the player and computer arrays at the corresponding key (e.g. if `starfish` is direct match for the value at index 3 in the `playerChoice`, `full` is added to key 3 in both objects). 
-
-<img width="448" alt="Screenshot 2023-01-05 at 17 04 51" src="https://user-images.githubusercontent.com/114397080/210838809-46802105-1d25-4d6e-bfcf-c42ebd0da37d.png">
+![Screenshot 2023-01-05 at 17 09 45](https://user-images.githubusercontent.com/114397080/210839669-a6fe3dbf-a795-4f12-98ae-120956ebae7f.png)
 
 ### Comparing the partial matches
+Secondly I checked to see if the value int the `computerCurrentChoiceArray` value matched any value in the `playerCurrentChoiceArray`. If the key already had a value (`full`) this would not be in compared. The partial matches would be given a value of `partial` in both objects. 
 
-
+![Screenshot 2023-01-05 at 17 10 31](https://user-images.githubusercontent.com/114397080/210839819-817b7c0f-9334-4ea9-827d-a96e1cd71456.png)
 
 ### Giving clues to the player choice
+After the player makes their choices that round, clues are allocated. 
+
+
 I targeted the DOM elements for the clue grid  (clue cells) in the same way, to display the “partial” and “full” matches. The matches are generated and passed into the empty `clueArray` at the end of each round. 
 
 <img width="367" alt="Screenshot 2023-01-04 at 17 06 33" src="https://user-images.githubusercontent.com/114397080/210610382-8efc0ed1-d156-42bd-ba07-a3df02861514.png">
@@ -118,7 +124,6 @@ The `updateDOMClue` gets called within a function called `compareChoices()`
 <img width="382" alt="Screenshot 2023-01-04 at 17 06 57" src="https://user-images.githubusercontent.com/114397080/210610459-b2b7644f-d7fc-4747-8cad-3663f4f71f3e.png">
 
 ## Challenges
-
 The main difficulty in this project was the logic behind comparing the player choice against the randomly generated code. Comparing full matches was more straightforward, but the partial matches were more problematic, as I didn't want duplicates in the players, or any of the full matches to be counted twice.
 
 <img width="633" alt="Screenshot 2023-01-04 at 17 07 17" src="https://user-images.githubusercontent.com/114397080/210610534-913c7cfa-c99f-462d-8550-05726b43e959.png">
@@ -129,7 +134,6 @@ The main difficulty in this project was the logic behind comparing the player ch
 * Strong visual design and theme
 
 ## Key Learning Points
-
 * Understanding the importance of creating a good plan, and working through things one step at a time. 
 * Feeling more adept at using CSS
 * Appreciating the value of DRY code and use of semantic naming
@@ -137,11 +141,9 @@ The main difficulty in this project was the logic behind comparing the player ch
 * Utilizing vanilla JavaScript for DOM manipulation 
 
 ## Bugs
-
 I am aware of an issue with white clue keys when the game is restarted using the play again function. 
 
 ## Future Improvements
-
 * Refactor some of the code (e.g. make the playerWon a function).
 * Refine the CSS to make it a little more DRY.
 * Make it possible to clear one row on the decoding grid, rather than resetting the entire game if the player wishes to change their choice.
