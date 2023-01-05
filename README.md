@@ -122,12 +122,12 @@ Firstly, I cycled through the `computerCurrentChoiceArray` and compared it one b
 
 ![Screenshot 2023-01-05 at 17 09 45](https://user-images.githubusercontent.com/114397080/210839669-a6fe3dbf-a795-4f12-98ae-120956ebae7f.png)
 
-### Comparing the partial matches
+#### Comparing the partial matches
 Secondly I checked to see if the value int the `computerCurrentChoiceArray` value matched any value in the `playerCurrentChoiceArray`. The partial matches would be given a value of `partial` in both objects.  If the key already had a value (`full`) no value would be added to the object, preventing duplication.
 
 ![Screenshot 2023-01-05 at 17 10 31](https://user-images.githubusercontent.com/114397080/210839819-817b7c0f-9334-4ea9-827d-a96e1cd71456.png)
 
-### Giving clues to the player choice
+#### Displaying clues 
 After the player makes their choices that round, clues are allocated. 
 
 I targeted the DOM elements for the clue grid  (clue cells) in the same way, to display the “partial” and “full” matches. The matches are generated and passed into the empty `clueArray` at the end of each round. 
