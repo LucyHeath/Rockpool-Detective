@@ -84,26 +84,29 @@ I created the `disableChoices()` with a `removeEventListener` to disable the cli
 
 In this game, each row of the grid is equivalent to a round of the game. During each round, four choices are placed in a row in the decoding grid,before being appraised with clues. 
 
-I therefore needed to transform my HTML list into arrays of four `decodingCells` (“rows”). These six arrays are held within the `rowsArray`. The starting row is actually the bottom of the grid and the last array of cells in the `rowsArray`, hence the `currentRow` variable. 
+I therefore needed to transform my HTML list into arrays of four `decodingCells` (“rows”). These six arrays are held within the `rowsArray`. The starting row is the bottom of the grid and the last array of cells in the `rowsArray. 
 <img width="734" alt="Screenshot 2023-01-05 at 16 28 15" src="https://user-images.githubusercontent.com/114397080/210830776-42fd4755-3d75-4b46-88f9-2e77ae501649.png">
 
 Similarly for the clue cells, I created the `prepareClue` function in which the `cellsArray` is built, containing six “cells” arrays , each with four targetable `clueCells` within them. These correspond to the number of clues which can be awarded each round. 
 
 ### Displaying player choice in the DOM
-This is a function that displays  the values in the `playerChoice array`, based on the index of the `decodingCell` in the current row.  
+This function  displays  the values in the `playerChoice array`, based on the index of the `decodingCell` in the current row.  
 <img width="446" alt="Screenshot 2023-01-04 at 17 04 25" src="https://user-images.githubusercontent.com/114397080/210609998-5e81bb2d-5bc4-42d0-8bf2-d2d80986c16a.png">
 
 The `updateDOMRow()` function is then called within `playerChoice()`.
 <img width="534" alt="Screenshot 2023-01-04 at 17 05 00" src="https://user-images.githubusercontent.com/114397080/210610109-c5d5b0ef-6518-4dfa-acdb-89e6d3de0197.png">
 
-### Comparing the randomly generated secret code with the players chosen code
-Initially I used multiple array methods, however a simpler solution was to create objects for the player and the computer and pass the “full” or “partial” matches into these. 		The diagram shows how the partial and full matching process works
-<img width="628" alt="Screenshot 2023-01-04 at 17 05 36" src="https://user-images.githubusercontent.com/114397080/210610233-96845a0b-d68f-4f9c-bfad-37c8a997a65d.png">
+### Comparing secret code with the player choice
+Initially I used multiple array methods for this, however a simpler solution was to create objects for the player and the computer and pass either `full` or `partial` as the values for each key (0 to 3), representing the four choices.The diagram shows how the partial and full matching process works.
+![Screenshot 2023-01-05 at 17 06 03](https://user-images.githubusercontent.com/114397080/210839017-6fc79c02-90ea-4c97-8a31-47e99738dd92.png)
 
-First full matches were checked. I cycled through the `computerCurrentChoiceArray` and compared it one by one with the values in the `playerCurrentChoiceArray`. The value and the index position is compared, and if both match the value full is added into both the player and computer arrays at the corresponding key (e.g. if starfish is direct match and "full" is added to key 3 in both objects. 
-<img width="642" alt="Screenshot 2023-01-04 at 17 05 59" src="https://user-images.githubusercontent.com/114397080/210610283-3e46a214-0586-4c16-8b2c-dea790248cf9.png">
+First full matches were checked. I cycled through the `computerCurrentChoiceArray` and compared it one by one with the values in the `playerCurrentChoiceArray`. The value and the index position is compared, and if both match the value `full` is added into both the player and computer arrays at the corresponding key (e.g. if `starfish` is direct match for the value at index 3 in the `playerChoice`, `full` is added to key 3 in both objects). 
 
-### Comparing the partial matches….more info here
+<img width="448" alt="Screenshot 2023-01-05 at 17 04 51" src="https://user-images.githubusercontent.com/114397080/210838809-46802105-1d25-4d6e-bfcf-c42ebd0da37d.png">
+
+### Comparing the partial matches
+
+
 
 ### Giving clues to the player choice
 I targeted the DOM elements for the clue grid  (clue cells) in the same way, to display the “partial” and “full” matches. The matches are generated and passed into the empty `clueArray` at the end of each round. 
