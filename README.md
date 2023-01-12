@@ -24,7 +24,7 @@ I used [Trello](https://trello.com/) to plan the project which enabled me to kee
 
 ### Wireframe
 ![Wireframe](https://i.imgur.com/K3FRWtw.png)
-Using a wireframe (drawn with [Excalidraw](https://excalidraw.com)) helped me visualize the HTML components, as well as ideas for styling the user interface.
+Using a wireframe (drawn with [Excalidraw](https://excalidraw.com)) helped me visualise the HTML components, as well as ideas for styling the user interface.
 
 ### Pseudocode
 I wrote a framework for the JavaScript in plain English, including the elements, variables, executions and events. I included methods and the logic I planned to use. 
